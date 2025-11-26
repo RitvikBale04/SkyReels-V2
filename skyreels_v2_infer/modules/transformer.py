@@ -15,6 +15,10 @@ from torch.nn.attention.flex_attention import flex_attention
 
 from .attention import flash_attention
 
+import torch._dynamo
+# Suppress the error and fall back to standard "eager" execution
+torch._dynamo.config.suppress_errors = True
+
 
 flex_attention = torch.compile(flex_attention, dynamic=False, mode="max-autotune")
 
